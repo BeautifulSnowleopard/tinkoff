@@ -6,8 +6,7 @@
     display: block;
     height: 34px;
     width: 150px;
-    background-image: url('https://www.cdn-tinkoff.ru/frontend-libraries/pfcore-static-assets/logos/main-logo.svg');
-  }
+}
 
   :root {
     --text-font: 'Roboto', sans-serif;
@@ -39,75 +38,6 @@ body {
     margin: auto;
 }
 
-.main-image {
-    display: flex;
-    height: 812px;
-    padding: 30px 128px 40px 128px;
-    flex-direction: column;
-    align-items: center;
-    gap: 64px;
-
-    background-color: var(--base-02);
-}
-
-.text-block {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 40px 0px 64px 0px;
-    gap: 40px;
-
-    &__text {
-        display: flex;
-        width: 912px;
-        flex-direction: column;
-        align-items: center;
-        gap: 24px;
-
-        & p {
-            text-align: center;
-            font-size: 15px;
-            font-style: normal;
-            font-weight: 400;
-            line-height: 24px;
-            margin: 0;
-        }
-    }
-
-    &__btn {
-        justify-content: center;
-        align-items: center;
-        padding: 0;
-        border: none;
-        color: inherit;
-        font: inherit;
-        cursor: pointer;
-        outline: inherit;
-
-        padding: 16px 36px;
-        border-radius: 8px;
-        background-color: var(--base-03);
-
-        &:hover {
-            background-color: var(--base-04);
-            transition: background-color 0.3s ease-in-out 0s;
-        }
-
-        &:focus {
-            border-radius: 8px;
-            border: 2px solid var(--base-06, rgba(51, 51, 51, 0.48));
-            transition: border 0.3s ease-in-out 0s;
-        }
-
-        &__name {
-            font-size: 15px;
-            font-style: normal;
-            font-weight: 400;
-            line-height: 24px;
-        }
-    }
-}
-
 .info-block {
     display: flex;
     flex-direction: column;
@@ -126,19 +56,6 @@ body {
     }
 }
 
-.list {
-    font: var(--font-text);
-    color: var(--text-01);
-    list-style-type: "— ";
-
-    & li {
-        margin-bottom: 12px;
-
-        &:last-child {
-            margin: 0;
-        }
-    }
-}
 
 .cards {
     display: flex;
@@ -257,57 +174,8 @@ body {
     box-shadow: 0px 4px 24px 0px var(--text-03);
 }
 
-.navigation {
-    flex: 1 0;
-    height: 64px;
-    align-items: center;
 
-    &__list {
-        margin: 0;
-        height: 100%;
-        display: flex;
-        flex-flow: row nowrap;
-    }
-
-    &__link {
-        display: flex;
-        align-items: center;
-        height: 100%;
-        margin-right: 24px;
-
-        &:last-child {
-            margin-right: 0;
-        }
-
-        & a {
-            display: inline-flex;
-            align-items: center;
-            text-decoration: none;
-            height: 100%;
-            color: var(--text-02);
-
-            font-size: 13px;
-            font-style: normal;
-            font-weight: 400;
-            line-height: 20px;
-
-            &:hover {
-                transition: color 0.3s ease-in-out 0s;
-                color: var(--text-01);
-            }
-        }
-
-        &_active {
-            box-shadow: inset 0px -2px 0px var(--base-01);
-
-            & a {
-                color: var(--text-01);
-            }
-        }
-    }
-}
-
-.login {
+.set-default-values {
     display: flex;
     align-items: center;
     height: 100%;
@@ -316,7 +184,7 @@ body {
         display: flex;
         align-items: center;
         padding: 0;
-        background: none;
+        background:rgba(51, 51, 51, 0.48);
         border: none;
         color: inherit;
         font: inherit;
@@ -344,11 +212,11 @@ body {
         }
 
         &:hover {
-            & .login-btn__name {
+            & .set-default-values-btn__name {
                 color: black;
             }
 
-            & .login-btn__icon svg {
+            & .set-default-values-btn__icon svg {
                 fill: black;
             }
         }

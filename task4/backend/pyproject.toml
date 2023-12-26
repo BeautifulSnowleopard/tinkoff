@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "artstore"
+version = "0.1.0"
+description = ""
+authors = ["DesignerMary <mmarshunina@yandex.ru>"]
+readme = "README.md"
+packages = [
+    { include = "artstore" }
+]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+fastapi = "^0.106.0"
+uvicorn = "^0.25.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+start = "artstore.main:start"

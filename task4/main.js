@@ -21,30 +21,35 @@ const renderCard = (name, description, linkToImage, code, author) => {
 
 const artList = [
     {
+        id: 0,
         name: 'Богатыри',
         description: 'Над картиной работали около двадцати лет.',
         linkToImage: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Viktor_Vasnetsov_-_%D0%91%D0%BE%D0%B3%D0%B0%D1%82%D1%8B%D1%80%D0%B8_-_Google_Art_Project.jpg/760px-Viktor_Vasnetsov_-_%D0%91%D0%BE%D0%B3%D0%B0%D1%82%D1%8B%D1%80%D0%B8_-_Google_Art_Project.jpg',
         author: 'Виктор Васнецов'
     },
     {
+        id: 1,
         name: 'Опять двойка',
         description: 'Хранится в Третьяковской галере.',
         linkToImage: 'https://upload.wikimedia.org/wikipedia/ru/thumb/1/14/Opyat_dvoyka.jpg/300px-Opyat_dvoyka.jpg',
         author: 'Фёдор Решетников'
     },
     {
+        id: 2,
         name: 'Лютнист',
         description: 'Картина существует в трёх версиях.',
         linkToImage: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Michelangelo_Caravaggio_020.jpg/680px-Michelangelo_Caravaggio_020.jpg',
         author: 'Караваджо'
     },
     {
+        id: 3,
         name: 'Кружевница',
         description: 'Находится в парижском музее Лувр.',
         linkToImage: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Johannes_Vermeer_-_The_lacemaker_%28c.1669-1671%29.jpg/700px-Johannes_Vermeer_-_The_lacemaker_%28c.1669-1671%29.jpg',
         author: 'Ян Вермеер'
     },
     {
+        id: 4,
         name: 'Неизвестная',
         description: 'Портрет часто ошибочно называют «Незнакомка».',
         linkToImage: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Kramskoy_Portrait_of_a_Woman.jpg/650px-Kramskoy_Portrait_of_a_Woman.jpg',
@@ -58,7 +63,7 @@ function generateArtCardsHTML(cardsList = artList) {
         return cards;
     }
     for (let i = 0; i < cardsList.length; i++) {
-        cards += renderCard(cardsList[i].name, cardsList[i].description, cardsList[i].linkToImage, i, cardsList[i].author);
+        cards += renderCard(cardsList[i].name, cardsList[i].description, cardsList[i].linkToImage, cardsList[i].id, cardsList[i].author);
     }
     return cards;
 }
@@ -73,6 +78,20 @@ function renderCards() {
     const cardsHtml = generateArtCardsHTML(cards);
     const cardsBlock = document.getElementById('cards');
     cardsBlock.innerHTML = cardsHtml;
+    const deleteButtons = document.querySelectorAll('.card-btns-btn__delete');
+    deleteButtons.forEach((item) => {
+        item.addEventListener('click', (evt) => {
+            const id = evt.target.parentElement.parentElement.querySelector('.card-id').textContent.split(' ')[1];
+            deleteCard(id);
+        });
+    });
+}
+
+function deleteCard(id) {
+    const cards = JSON.parse(localStorage.getItem('cards'));
+    const newCards = cards.filter((item) => item.id != id);
+    localStorage.setItem('cards', JSON.stringify(newCards));
+    renderCards();
 }
 
 const setupButton = document.getElementById('setup-button');

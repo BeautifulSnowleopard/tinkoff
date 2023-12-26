@@ -103,14 +103,13 @@ function deleteCard(id) {
   item.remove();
 }
 
-function editCard(id) {
+async function editCard(id) {
   editState = id;
   const formTitle = document.getElementById('form-title');
   formTitle.textContent = 'Редактирование картины ' + id;
 
   const inputs = form.querySelectorAll('input');
-  const cards = JSON.parse(localStorage.getItem('cards'));
-  const card = cards.find((item) => item.id == id);
+  const card = await fetch(API_URL + `/${id}`).then((res) => res.json());
   inputs.forEach((item) => {
     item.value = card[item.id];
   });
@@ -123,20 +122,27 @@ const form = document.forms[0];
 
 form.addEventListener('submit', (evt) => {
   evt.preventDefault();
-  var cards = JSON.parse(window.localStorage.getItem('cards'));
-
   if (editState !== -1) {
     const inputs = evt.target.querySelectorAll('input');
     const obj = {};
     inputs.forEach((item) => (obj[item.id] = item.value));
     obj.id = editState;
-    cards[editState] = obj;
+    fetch(API_URL + `/${editState}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(obj),
+    });
     editState = -1;
     const formTitle = document.getElementById('form-title');
     formTitle.textContent = 'Добавление картины';
     inputs.forEach((item) => {
       item.value = '';
     });
+    const cardsContainer = document.getElementById('cards');
+    document.getElementById(`card-${obj.id}`).remove();
+    renderNewCard(obj.name, obj.description, obj.linkToImage, obj.id, obj.author);
     return;
   } else {
     const obj = {};

@@ -1,6 +1,8 @@
 import 'normalize.css';
 import './index.less';
 
+var editState = -1;
+
 const renderCard = (name, description, linkToImage, code, author) => {
     return `
     <div class="card">
@@ -85,6 +87,14 @@ function renderCards() {
             deleteCard(id);
         });
     });
+
+    const editButtons = document.querySelectorAll('.card-btns-btn__edit');
+    editButtons.forEach((item) => {
+        item.addEventListener('click', (evt) => {
+            const id = evt.target.parentElement.parentElement.querySelector('.card-id').textContent.split(' ')[1];
+            editCard(id);
+        });
+    });
 }
 
 function deleteCard(id) {
@@ -92,6 +102,20 @@ function deleteCard(id) {
     const newCards = cards.filter((item) => item.id != id);
     localStorage.setItem('cards', JSON.stringify(newCards));
     renderCards();
+}
+
+function editCard(id) {
+    editState = id;
+    const formTitle = document.getElementById('form-title');
+    formTitle.textContent = 'Редактирование картины ' + id;
+
+    const inputs = form.querySelectorAll("input");
+    // set values from card
+    const cards = JSON.parse(localStorage.getItem('cards'));
+    const card = cards.find((item) => item.id == id);
+    inputs.forEach((item) => {
+        item.value = card[item.id];
+    });
 }
 
 const setupButton = document.getElementById('setup-button');
@@ -103,13 +127,31 @@ form.addEventListener("submit", (evt) => {
     evt.preventDefault();
     var cards = JSON.parse(window.localStorage.getItem("cards"));
 
-    const obj = {};
-    const inputs = evt.target.querySelectorAll("input");
-    inputs.forEach((item) => (obj[item.id] = item.value));
-    cards.push(obj);
-    console.log(cards)
-    window.localStorage.setItem("cards", JSON.stringify(cards));
-    renderCards();
+    if (editState !== -1) {
+        const inputs = evt.target.querySelectorAll("input");
+        const obj = {};
+        inputs.forEach((item) => (obj[item.id] = item.value));
+        obj.id = editState;
+        cards[editState] = obj;
+        editState = -1;
+        const formTitle = document.getElementById('form-title');
+        formTitle.textContent = 'Добавление картины';
+        inputs.forEach((item) => {
+            item.value = '';
+        });
+        window.localStorage.setItem("cards", JSON.stringify(cards));
+        renderCards();
+        return;
+    } else {
+        const obj = {};
+        const inputs = evt.target.querySelectorAll("input");
+        inputs.forEach((item) => (obj[item.id] = item.value));
+        obj.id = cards.length;
+        cards.push(obj);
+        console.log(cards)
+        window.localStorage.setItem("cards", JSON.stringify(cards));
+        renderCards();
+    }
 });
 
 renderCards();

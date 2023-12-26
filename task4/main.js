@@ -52,14 +52,14 @@ const artList = [
     }
 ];
 
-function generateArtCards(cardsList = artList) {
+function generateArtCardsHTML(cardsList = artList) {
     let cards = '';
     if (!cardsList) {
         return cards;
     }
-    cardsList.map((item, index) => {
-        cards += renderCard(item.name, item.description, item.linkToImage, index, item.author);
-    });
+    for (let i = 0; i < cardsList.length; i++) {
+        cards += renderCard(cardsList[i].name, cardsList[i].description, cardsList[i].linkToImage, i, cardsList[i].author);
+    }
     return cards;
 }
 
@@ -70,7 +70,7 @@ function setupDefaultCards() {
 
 function renderCards() {
     const cards = JSON.parse(localStorage.getItem('cards'));
-    const cardsHtml = generateArtCards(cards);
+    const cardsHtml = generateArtCardsHTML(cards);
     const cardsBlock = document.getElementById('cards');
     cardsBlock.innerHTML = cardsHtml;
 }
@@ -87,9 +87,10 @@ form.addEventListener("submit", (evt) => {
     const obj = {};
     const inputs = evt.target.querySelectorAll("input");
     inputs.forEach((item) => (obj[item.id] = item.value));
-    const newCard = renderCard(obj.name, obj.description, obj.linkToImage, cards.length, obj.author);
-    cards += newCard;
+    cards.push(obj);
+    console.log(cards)
     window.localStorage.setItem("cards", JSON.stringify(cards));
+    renderCards();
 });
 
 renderCards();

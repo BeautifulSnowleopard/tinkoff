@@ -100,6 +100,10 @@ async def update_art_piece(id: int, piece: ArtPiece):
     except KeyError:
         raise HTTPException(status_code=404, detail="Item not found")
 
+@api_router.get("/author/")
+async def get_application_author():
+    return "Маршунина Мария 6407"
+
 
 app.include_router(api_router)
 

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="assets/icons/art-shop-favicon-color.svg" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap"
+      rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Магазин картин</title>
+  </head>
+
+  <body>
+    <header class="main-header">
+      <div class="logo">Маршунина Мария 6407</div>
+      <div class="setup-default">
+        <button id="setup-button" class="setup-default-btn">
+          <span class="setup-default-btn__name"
+            >Засетапить начальные значения</span
+          >
+        </button>
+      </div>
+    </header>
+    <main>
+      <div class="main">
+        <section class="add-card-block">
+          <h2 class="title" id="form-title">Добавление картины</h2>
+          <form class="add-card-block-form">
+            <input
+              class="add-card-block-form-input"
+              type="text"
+              placeholder="Название"
+              id="name"
+              required />
+            <input
+              class="add-card-block-form-input"
+              type="text"
+              placeholder="Ссылка на изображение"
+              id="linkToImage"
+              required />
+            <input
+              class="add-card-block-form-input"
+              placeholder="Описание"
+              id="description"
+              required />
+            <input
+              class="add-card-block-form-input"
+              type="text"
+              placeholder="Автор"
+              id="author"
+              required />
+            <button class="add-card-block-form-btn" id="submit-button">
+              Сохранить
+            </button>
+          </form>
+        </section>
+        <section class="cards-block">
+          <h2 class="title">Картины</h2>
+          <div class="cards-block-cards" id="cards"></div>
+        </section>
+      </div>
+    </main>
+
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>

@@ -1,7 +1,16 @@
 from fastapi import FastAPI, HTTPException, APIRouter
 from pydantic import BaseModel, ConfigDict
+from starlette.middleware.cors import CORSMiddleware
 
 app = FastAPI(title="ArtStore", version="0.1.0")
+
+app.add_middleware(
+        CORSMiddleware,
+        allow_origins=["*"],
+        allow_methods=["*"],
+        allow_headers=["*"],
+        expose_headers=["*"]
+)
 
 # FIXME: we use this as a temporary storage for the art pieces, this should be replaced with a database
 art_storage = {
@@ -47,6 +56,8 @@ art_storage = {
   }
 }
 
+default_values = art_storage.copy()
+
 
 class ArtPiece(BaseModel):
     id: int = None
@@ -59,6 +70,13 @@ class ArtPiece(BaseModel):
 
 
 api_router = APIRouter(prefix="/api/v1/art", tags=["art"])
+
+@api_router.get("/default/")
+async def set_default_values():
+    global art_storage
+    art_storage = default_values.copy()
+    return list(art_storage.values())
+
 
 @api_router.get("/")
 async def get_all():
@@ -75,7 +93,10 @@ async def get_by_id(id: int):
 
 @api_router.post("/")
 async def add_art_piece(piece: ArtPiece):
-    last_id = max(art_storage.keys())
+    if art_storage:
+      last_id = max(art_storage.keys())
+    else:
+      last_id = 0
     piece.id = last_id+1
     art_storage[piece.id] = piece.model_dump()
     return art_storage[piece.id]

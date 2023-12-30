@@ -1,12 +1,13 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { ListPage } from './pages/ListPage';
-import { theme } from './theme.js';
+import { MoviesPage } from '../pages/movies-page/MoviesPage.jsx';
+import './App.css'
+
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route element={<ListPage />} path={'/*'}>
+        <Route element={<MoviesPage />} path={'/*'}>
 
         </Route>
       </Routes>

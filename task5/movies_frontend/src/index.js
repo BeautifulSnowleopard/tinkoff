@@ -1,8 +1,8 @@
-import reportWebVitals from './reportWebVitals';
+import reportWebVitals from './reportWebVitals.js';
 import { ThemeProvider } from '@mui/material';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App.jsx';
+import App from './app/App.jsx';
 import './index.css';
 import { theme } from './theme.js';
 

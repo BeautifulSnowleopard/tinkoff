@@ -11,10 +11,16 @@ export const theme = createTheme({
       base_06: 'rgba(0, 0, 0, 0.2)',
     },
     button: {
-      main: '#ffdd2d',
+      main: '#FFDD2D',
       light: '#fcc521',
       dark: '#fab619',
       contrastText: '#000000',
     },
+    searchButton: {
+        main: '#FFFFFF',
+        light: '#fcc521',
+        dark: '#ECF1F7',
+        contrastText: '#336FEE',
+    }
   },
 });

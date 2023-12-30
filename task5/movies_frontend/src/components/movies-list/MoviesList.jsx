@@ -14,6 +14,7 @@ export default function MoviesList ()
       flexDirection: 'column',
       alignItems: 'center',
       width: '100%',
+      height: '85%'
     }}
   >
     <SearchField></SearchField>

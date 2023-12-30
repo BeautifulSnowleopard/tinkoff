@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import SearchField from '../search/SearchField';
 import MovieCard from '../movie-card/MovieCard';
-import { CircularProgress, Divider, Typography } from '@mui/material';
+import { CircularProgress, Divider, Typography, Button } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 
 export default function MoviesList () 
@@ -19,7 +20,7 @@ export default function MoviesList ()
         let movies = await fetch(url).then(response => response.json());
         setMovies(movies);
       } catch (err) {
-        alert('Ошибка в запросе имени автора: ' + err);
+        alert('Error on fetch: ' + err);
       } finally {
         setLoading(false);
       }
@@ -64,6 +65,13 @@ export default function MoviesList ()
     <Typography variant="body2" color="text.secondary" style={{paddingTop: '0.37rem', paddingBottom: '0.44rem'}}>
       Найдено фильмов: {filteredMovies.length}
     </Typography>
+      <Link to={'/movie/add'} style={{textDecoration: "none"}}>
+        <Button variant="contained" 
+            color="button" 
+            style={{borderRadius: "0.5rem"}}>
+          Добавить фильм
+        </Button>
+      </Link>
   </Box>
   );
 };

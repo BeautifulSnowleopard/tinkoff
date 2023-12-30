@@ -3,7 +3,7 @@ import EditNoteIcon from '@mui/icons-material/EditNote';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { Box, Grid, IconButton, Typography, List, ListItem, ListItemText, Button, CircularProgress } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 
 const copyIdInClipboard = id => {
     void navigator.clipboard.writeText(id);
@@ -29,7 +29,7 @@ const MovieDetails = () => {
             const currentMovie = await response.json();
             setMovie(currentMovie);
           } catch (err) {
-            alert('Ошибка в запросе на получение данных для отрисовки карточки: ' + err);
+            alert('Error on fetch in MovieDetails: ' + err);
           } finally {
             setLoading(false);
           }
@@ -58,10 +58,14 @@ const MovieDetails = () => {
                     </IconButton>
                 </Grid>
                 <Grid item xs={4} sx={{ display: 'flex', alignItems: 'center' }}>
-                    <EditNoteIcon sx={{ color: '#000000' }} />
-                    <Typography component="span" variant="h6" sx={{ color: '#000000', fontSize: '16px' }}>
-                        Редактировать
-                    </Typography>
+                    <Link 
+                    to={'/movie/edit/' + id} 
+                    style={{textDecoration: "none"}}>
+                        <EditNoteIcon sx={{ color: '#000000' }} />
+                        <Typography component="span" variant="h6" sx={{ color: '#000000', fontSize: '16px' }}>
+                            Редактировать
+                        </Typography>
+                    </Link>
                 </Grid>
                 <Grid item xs={3}>
                     <Box

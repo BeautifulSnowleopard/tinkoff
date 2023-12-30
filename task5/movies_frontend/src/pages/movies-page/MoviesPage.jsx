@@ -3,15 +3,15 @@ import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import Header from '../../components/header/Header.jsx';
 import MoviesList from '../../components/movies-list/MoviesList.jsx';
-import { Divider, Typography } from '@mui/material';
 import MovieDetails from '../../components/movie-details/MovieDetails.jsx';
 import { useParams } from 'react-router-dom';
 import { Navigate } from 'react-router-dom';
 
 export function MoviesPage() {
   const { id: movieId } = useParams();
-
-  if (!movieId) {
+  
+  // Redirect to the first movie if no movie is selected
+  if (!movieId || movieId === 'undefined' || isNaN(movieId)) {
     return <Navigate to="/movie/1" />;
   }
 

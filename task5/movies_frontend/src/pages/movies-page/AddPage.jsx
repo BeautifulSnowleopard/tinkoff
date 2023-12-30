@@ -3,10 +3,9 @@ import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import Header from '../../components/header/Header.jsx';
 import MoviesList from '../../components/movies-list/MoviesList.jsx';
-import { Divider, Typography } from '@mui/material';
-import EditForm from '../../components/edit-form/EditForm.jsx';
+import AddForm from '../../components/add-form/AddForm.jsx';
 
-export function EditPage() {
+export function AddPage() {
 
   return (
     <>
@@ -17,7 +16,7 @@ export function EditPage() {
           <MoviesList />
         </Grid>
         <Grid item md={9} component={Paper} square>
-          <EditForm/>
+          <AddForm/>
         </Grid>
       </Grid>
     </>

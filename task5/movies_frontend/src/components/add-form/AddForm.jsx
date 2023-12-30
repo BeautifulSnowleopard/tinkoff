@@ -9,39 +9,23 @@ import { useEffect, useState } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 
 
-export default function EditForm () 
+export default function AddForm () 
 {
   const [loading, setLoading] = useState(true);
-  const { id: movieId } = useParams();
-  const [movie, setMovie] = useState(null);
+  const [movie, setMovie] = useState({});
 
-  const refreshPageAfterEdit = () => {
-    window.location.reload();
+  const navigate = useNavigate();
+
+  const refreshPage = () => {
+    navigate('/');
   };
-
-  useEffect(() => {
-    setLoading(true);
-    const fetchMovies = async id => {
-      const url = `http://localhost:3001/movies/${movieId}`;
-      try {
-        const response = await fetch(url);
-        const currentMovie = await response.json();
-        setMovie(currentMovie);
-      } catch (err) {
-        alert('Error on fetch: ' + err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchMovies(movieId);
-  }, [movieId]);
 
   const handleSubmit = async e => {
     e.preventDefault();
 
     try {
-      await fetch(`http://localhost:3001/movies/${movieId}`, {
-        method: 'PUT',
+      await fetch(`http://localhost:3001/movies/`, {
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -49,17 +33,19 @@ export default function EditForm ()
       }).then(() => {});
     } catch (err) {
       alert(err);
+    } finally {
+        setLoading(false);
     }
 
-    refreshPageAfterEdit();
+    refreshPage();
   };
+  
   const collectedArray = e => {
     setMovie(prevState => {
       return { ...prevState, [e.target.name]: e.target.value.split(', ') };
     });
   };
 
-  if (loading) return <CircularProgress />;
   const onChange = e => {
     setMovie(prevState => {
       return { ...prevState, [e.target.name]: e.target.value };
@@ -78,7 +64,7 @@ export default function EditForm ()
   >
     <Form> 
       <Typography component="h1" variant="h5">
-        Редактирование фильма
+        Создание фильма
       </Typography>
       <Box component="form" noValidate sx={{ mt: 1 }}>
         <TextField
@@ -91,7 +77,6 @@ export default function EditForm ()
           autoComplete="title"
           autoFocus
           onChange={onChange}
-          value={movie?.title}
         />
         <TextField
           margin="normal"
@@ -103,7 +88,6 @@ export default function EditForm ()
           id="year"
           autoComplete="year"
           onChange={onChange}
-          value={movie?.year}
         />
         <TextField
           margin="normal"
@@ -115,7 +99,6 @@ export default function EditForm ()
           id="runtime"
           autoComplete="runtime"
           onChange={onChange}
-          value={movie?.runtime}
         />
         <TextField
           margin="normal"
@@ -127,7 +110,6 @@ export default function EditForm ()
           id="director"
           autoComplete="director"
           onChange={onChange}
-          value={movie?.director}
         />
         <TextField
           margin="normal"
@@ -139,7 +121,6 @@ export default function EditForm ()
           id="actors"
           autoComplete="actors"
           onChange={collectedArray}
-          value={movie?.actors}
         />
         <TextField
           margin="normal"
@@ -151,7 +132,6 @@ export default function EditForm ()
           id="plot"
           autoComplete="plot"
           onChange={onChange}
-          value={movie?.plot}
         />
         <TextField
           margin="normal"
@@ -163,7 +143,6 @@ export default function EditForm ()
           id="posterUrl"
           autoComplete="posterUrl"
           onChange={onChange}
-          value={movie?.posterUrl}
         />
         <TextField
           margin="normal"
@@ -175,7 +154,6 @@ export default function EditForm ()
           id="genres"
           autoComplete="genres"
           onChange={collectedArray}
-          value={movie?.genres}
         />
         <TextField
           margin="normal"
@@ -187,7 +165,6 @@ export default function EditForm ()
           id="rating"
           autoComplete="rating"
           onChange={onChange}
-          value={movie?.rating}
         />
         <Button
           type="submit"

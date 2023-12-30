@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { TextField, Button } from '@mui/material';
 
 const SearchField = ({ searchQuery, onChangeQuery }) => {
-    const handleSearch = () => {
-        setSearchQuery('');
+    const handleClear = () => {
+        onChangeQuery('');
     };
 
     const handleChange = (event) => {
@@ -11,7 +11,7 @@ const SearchField = ({ searchQuery, onChangeQuery }) => {
     };
 
     return (
-        <div style={{ display: 'flex', paddingLeft: '0.56rem', paddingRight: '0.75rem', paddingTop: '0.62rem', paddingBottom: '0.94rem',  flexDirection: 'row',  alignItems: 'center', gap: '0.81rem', height: '2rem', width: "100%"}}>
+        <div style={{ display: 'flex', paddingLeft: '0.56rem', paddingRight: '0.75rem', paddingTop: '0.72rem', paddingBottom: '0.94rem',  flexDirection: 'row',  alignItems: 'center', gap: '0.81rem', height: '2rem', width: "100%"}}>
             <TextField
                 label="Введите название фильма"
                 variant="outlined"
@@ -19,8 +19,8 @@ const SearchField = ({ searchQuery, onChangeQuery }) => {
                 onChange={handleChange}
                 style={{ borderRadius: '0.5rem', width: '100%', height: '3rem', fontSize: '0.75rem'}}
             />
-            <Button variant="contained" color='searchButton' onClick={handleSearch} style={{  height: '3rem', fontSize: '0.75rem'}}>
-                Искать
+            <Button variant="contained" color='searchButton' onClick={handleClear} style={{  height: '3rem', fontSize: '0.75rem'}}>
+                Очистить
             </Button>
         </div>
     );

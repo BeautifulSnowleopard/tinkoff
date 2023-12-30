@@ -23,4 +23,19 @@ export const theme = createTheme({
         contrastText: '#336FEE',
     }
   },
+  typography: {
+    fontFamily: [
+      'Inter',
+    ].join(','),
+    body1: {
+        fontSize: '1rem',
+        fontWeight: 400,
+        lineHeight: 'normal',
+    },
+    body2: {
+        fontSize: '0.875rem',
+        fontWeight: 400,
+        lineHeight: 'normal',
+    },
+  },
 });

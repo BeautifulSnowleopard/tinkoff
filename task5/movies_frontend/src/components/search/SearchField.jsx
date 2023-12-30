@@ -14,15 +14,15 @@ const SearchField = () => {
     };
 
     return (
-        <div style={{ display: 'flex', margin: '0.51rem 0.63rem',  flexDirection: 'row',  alignItems: 'center', gap: '0.81rem', height: '2rem'}}>
+        <div style={{ display: 'flex', paddingLeft: '0.56rem', paddingRight: '0.75rem', paddingTop: '0.62rem', paddingBottom: '0.94rem',  flexDirection: 'row',  alignItems: 'center', gap: '0.81rem', height: '2rem', width: "100%"}}>
             <TextField
                 label="Введите название фильма"
                 variant="outlined"
                 value={searchQuery}
                 onChange={handleChange}
-                style={{ borderRadius: '0.5rem', width: '30rem'}}
+                style={{ borderRadius: '0.5rem', width: '100%', height: '3rem', fontSize: '0.75rem'}}
             />
-            <Button variant="contained" color='searchButton' onClick={handleSearch} style={{ width: "4.25rem", height: '3rem', fontSize: '0.75rem'}}>
+            <Button variant="contained" color='searchButton' onClick={handleSearch} style={{  height: '3rem', fontSize: '0.75rem'}}>
                 Искать
             </Button>
         </div>

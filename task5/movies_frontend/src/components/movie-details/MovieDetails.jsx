@@ -1,18 +1,50 @@
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import EditNoteIcon from '@mui/icons-material/EditNote';
-import React, { useState } from 'react';
-import { Box, Grid, IconButton, Typography, List, ListItem, ListItemText, Button } from '@mui/material';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import { Box, Grid, IconButton, Typography, List, ListItem, ListItemText, Button, CircularProgress } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 const copyIdInClipboard = id => {
     void navigator.clipboard.writeText(id);
 };
 
-const MovieDetails = ({ id, title, actors, director, genres, plot, posterUrl, runtime, year, rating }) => {
+const MovieDetails = () => {
+    const [loading, setLoading] = useState(true);
+
     const [showAllActors, setShowAllActors] = useState(false);
+
+    const [isLiked, setLiked] = useState(false);
+
+    const [movie, setMovie] = useState(null);
+  
+    const { id: movieId } = useParams();
+
+    useEffect(() => {
+        setLoading(true);
+        const fetchMovies = async id => {
+          const url = `http://localhost:3001/movies/${id}`;
+          try {
+            const response = await fetch(url);
+            const currentMovie = await response.json();
+            setMovie(currentMovie);
+          } catch (err) {
+            alert('Ошибка в запросе на получение данных для отрисовки карточки: ' + err);
+          } finally {
+            setLoading(false);
+          }
+        };
+        fetchMovies(movieId);
+      }, [movieId]);
+
+    if (loading) return <CircularProgress />;
 
     const toggleShowAllActors = () => {
         setShowAllActors(!showAllActors);
     };
+
+    const { actors, director, genres, id, plot, posterUrl, runtime, title, year, rating } = movie;
+    const actorsArray = actors.split(',').map(actor => actor.trim());
 
     return (
         <Box sx={{ flexGrow: 1, paddingLeft: '0.5rem', paddingTop: '0.5rem' }}>
@@ -55,6 +87,9 @@ const MovieDetails = ({ id, title, actors, director, genres, plot, posterUrl, ru
                         <Typography variant="body2" color="text.secondary">
                             {director}
                         </Typography>
+                        <IconButton onClick={() => setLiked(prevState => !prevState)}>
+                            <FavoriteIcon aria-label="add to favorites" color={isLiked ? 'primary' : 'inherit'} />
+                        </IconButton>
                     </Box>
                     <Box sx={{ display: 'flex', alignContent: 'left', flexDirection: 'row' }}>
                         <Grid item xs={4}>
@@ -101,13 +136,13 @@ const MovieDetails = ({ id, title, actors, director, genres, plot, posterUrl, ru
                         Актеры:
                     </Typography>
                     <List>
-                        {actors.slice(0, showAllActors ? actors.length : 3).map((actor, index) => (
+                        {actorsArray.slice(0, showAllActors ? actorsArray.length : 3).map((actor, index) => (
                             <ListItem key={index}>
                                 <ListItemText primary={actor} />
                             </ListItem>
                         ))}
                     </List>
-                    {actors.length > 3 && (
+                    {actorsArray.length > 3 && (
                         <Button variant="outlined" onClick={toggleShowAllActors}>
                             {showAllActors ? 'Скрыть' : 'Показать все'}
                         </Button>

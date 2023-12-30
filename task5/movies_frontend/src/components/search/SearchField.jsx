@@ -1,16 +1,13 @@
 import React, { useState } from 'react';
 import { TextField, Button } from '@mui/material';
 
-const SearchField = () => {
-    const [searchQuery, setSearchQuery] = useState('');
-
+const SearchField = ({ searchQuery, onChangeQuery }) => {
     const handleSearch = () => {
-        // Perform search logic here
-        console.log('Search query:', searchQuery);
+        setSearchQuery('');
     };
 
     const handleChange = (event) => {
-        setSearchQuery(event.target.value);
+        onChangeQuery(event.target.value);
     };
 
     return (

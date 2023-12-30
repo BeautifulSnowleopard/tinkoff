@@ -4,17 +4,9 @@ import Grid from '@mui/material/Grid';
 import Header from '../../components/header/Header.jsx';
 import MoviesList from '../../components/movies-list/MoviesList.jsx';
 import { Divider, Typography } from '@mui/material';
-import MovieDetails from '../../components/movie-details/MovieDetails.jsx';
-import { useParams } from 'react-router-dom';
-import { Navigate } from 'react-router-dom';
+import EditForm from '../../components/edit-form/EditForm.jsx';
 
-export function MoviesPage() {
-  const { id: movieId } = useParams();
-
-  if (!movieId) {
-    return <Navigate to="/movie/1" />;
-  }
-
+export function EditPage() {
   return (
     <>
       <Header />
@@ -22,9 +14,13 @@ export function MoviesPage() {
         <CssBaseline />
         <Grid item md={5} component={Paper} square>
           <MoviesList />
+          <Divider />
+          <Typography variant="body2" color="text.secondary" style={{paddingTop: '0.37rem', paddingBottom: '0.44rem'}}>
+            Найдено фильмов: 3
+          </Typography>
         </Grid>
         <Grid item md={9} component={Paper} square>
-          <MovieDetails/>
+          <EditForm/>
         </Grid>
       </Grid>
     </>

@@ -14,7 +14,7 @@ const MovieDetails = () => {
 
     const [showAllActors, setShowAllActors] = useState(false);
 
-    const [isLiked, setLiked] = useState(false);
+    const [favoritesIds, setLiked] = useState(false);
 
     const [movie, setMovie] = useState(null);
   
@@ -99,8 +99,19 @@ const MovieDetails = () => {
                         <Typography variant="body2" color="text.secondary">
                             {director}
                         </Typography>
-                        <IconButton onClick={() => setLiked(prevState => !prevState)}>
-                            <FavoriteIcon aria-label="add to favorites" color={isLiked ? 'primary' : 'inherit'} />
+                        <IconButton onClick={() => 
+                            {
+                                // append to favorites or remove from favorites
+                                if (!favoritesIds) {
+                                    setLiked([movie.id]);
+                                } else if (favoritesIds.includes(movie.id)) {
+                                    setLiked(favoritesIds.filter((item) => item !== movie.id));
+                                } else {
+                                    setLiked([...favoritesIds, movie.id]);
+                                }
+                            }
+                        }>
+                            <FavoriteIcon aria-label="add to favorites" color={favoritesIds != false && favoritesIds.includes(movie.id) ? 'primary' : 'inherit'} />
                         </IconButton>
                     </Box>
                     <Box sx={{ display: 'flex', alignContent: 'left', flexDirection: 'row' }}>

@@ -44,7 +44,15 @@ const MovieDetails = () => {
     };
 
     const { actors, director, genres, id, plot, posterUrl, runtime, title, year, rating } = movie;
-    const actorsArray = actors.split(',').map(actor => actor.trim());
+    // if actors is a string, split it by comma and trim each actor
+    let actorsArray = [];
+    if (Array.isArray(actors)) {
+        let actorsToParse = actors[0];
+        actorsArray = actorsToParse.split(',').map(actor => actor.trim());
+    } else {
+        let actorsToParse = actors;
+        actorsArray = actorsToParse.split(',').map(actor => actor.trim());
+    }
 
     return (
         <Box sx={{ flexGrow: 1, paddingLeft: '0.5rem', paddingTop: '0.5rem' }}>
